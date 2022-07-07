@@ -236,7 +236,7 @@ public class NeuralNetwork extends SupervisedNetwork {
     }
 
     @Override
-    public double[] predict(double[] input) {
+    public double[] forecast(double[] input) {
         if (input.length != this.data[0].length) {
             System.out.println("Prediction data length mismatch");
             return null;
