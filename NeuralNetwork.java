@@ -42,51 +42,6 @@ public class NeuralNetwork extends SupervisedNetwork {
         if (p.getAutomaticRescaling()) {
             this.checkRescaling();
         }
-
-        /*System.out.println("Normalizing...");
-        double[] dmax = new double[this.data[0].length], dmin = new double[this.data[0].length];
-        double[] omax = new double[this.objectives[0].length], omin = new double[this.objectives[0].length];
-        for (int i = 0; i < this.data.length; i++) {
-            for (int j = 0; j < this.data[i].length; j++) {
-                if (this.data[i][j] > dmax[j]) {
-                    dmax[j] = this.data[i][j];
-                }
-
-                if (this.data[i][j] < dmin[j]) {
-                    dmin[j] = this.data[i][j];
-                }
-            }
-
-            for (int j = 0; j < this.objectives[i].length; j++) {
-                if (this.objectives[i][j] > omax[j]) {
-                    omax[j] = this.objectives[i][j];
-                }
-
-                if (this.objectives[i][j] < omin[j]) {
-                    omin[j] = this.objectives[i][j];
-                }
-            }
-        }
-
-        double[] ddiff = new double[dmax.length], odiff = new double[omax.length];
-
-        for (int i = 0; i < dmax.length; i++) {
-            ddiff[i] = dmax[i] - dmin[i];
-        }
-
-        for (int i = 0; i < omax.length; i++) {
-            odiff[i] = omax[i] - omin[i];
-        }
-
-        for (int i = 0; i < this.data.length; i++) {
-            for (int j = 0; j < this.data[i].length; j++) {
-                this.data[i][j] = (2 * this.data[i][j] - dmax[j] - dmin[j]) / ddiff[j];
-            }
-
-            for (int j = 0; j < this.objectives[i].length; j++) {
-                this.objectives[i][j] = (2 * this.objectives[i][j] - omax[j] - omin[j]) / odiff[j];
-            }
-        }*/
     }
 
     @Override
@@ -195,11 +150,6 @@ public class NeuralNetwork extends SupervisedNetwork {
                     dInput: dervative of the activation function with respect to the neuron's value (wx + b)
                     dWeight: derivative of the weighted sum with respect to the weight*/
 
-                    /*
-                    penso che il problema sia nella somma delle derivate di x di ciascun neurone nello strato l + 1,
-                    come dimostrato nella regressione lineare a più output (con 1 neurone di output funziona, con più no).
-                     */
-
                     for (int l = outputLayerIndex; l >= 0; l--) { //for each layer
                         xDerivatives[l] = new double[l == 0 ? data[k].length : values[l - 1].length];
 
@@ -215,20 +165,10 @@ public class NeuralNetwork extends SupervisedNetwork {
                                 this.weights[l][n][i] -= alpha * localDerivative * dWeight;
                                 this.bias[l][n] -= alpha * localDerivative;
                             }
-
-                            //System.out.println();
                         }
-
-                        //System.out.println(xDerivatives[l][0]);
                     }
                 }
             }
-
-            /*if (rescaled) {
-                for (int i = 0; i < this.weights[outputLayerIndex].length; i++) {
-                    this.bias[outputLayerIndex][i] *= Math.pow(10, rescalingLog);
-                }
-            }*/
         }
 
         public double[][][] getWeights() {
