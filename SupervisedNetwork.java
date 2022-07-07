@@ -28,24 +28,6 @@ public abstract class SupervisedNetwork {
             this.rescalingLog = log;
             this.rescale(log);
         }
-
-        /*for (int i = 0; i < this.data[0].length; i++) {
-            double max = this.data[0][0];
-
-            for (double[] x: this.data) {
-                if (x[i] > max) {
-                    max = x[i];
-                }
-            }
-
-            int log;
-            if ((log = (int) Math.floor(Math.log10(max))) >= 1) {
-                log += 2;
-                this.rescaled = true;
-                this.rescalingLog = log;
-                this.rescale(log);
-            }
-        }*/
     }
 
     protected void rescale(int log) {
@@ -67,52 +49,6 @@ public abstract class SupervisedNetwork {
         this.weights = weights;
         this.bias = bias;
     }
-    
-    /*public boolean importModel(String file) {
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String row = br.readLine();
-            String[] data = row.split(";");
-            
-            if (data.length <= 1) {
-                return false;
-            }
-            
-            this.weights = new double[1][1][data.length - 1];
-            this.bias = Double.parseDouble(data[0]);
-            
-            for (int i = 0; i < data.length - 1; i++) {
-                this.weights[0][0][i] = Double.parseDouble(data[i + 1]);
-            }
-            
-            return false;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    
-    public boolean exportModel(String path) {
-        try {
-            FileWriter fw = new FileWriter(path);
-            fw.write(this.bias + ";");
-
-            for (int i = 0; i < this.weights[0][0].length - 1; i++) {
-                fw.write(this.weights[0][0][i] + ";");
-            }
-
-            fw.write(this.weights[0][0][this.weights[0][0].length - 1] + "");
-            fw.flush();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public boolean exportModel() {
-        File dir = new File(".");
-        String path = dir.getAbsolutePath();
-        return exportModel(path + "/SupervisedModel.csv");
-    }*/
 
     public double[] predict(double[] x) {
         if (x.length != this.weights[0][0].length) {
